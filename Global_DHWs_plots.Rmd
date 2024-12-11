@@ -1,0 +1,185 @@
+---
+title: "Global_DHWs_analysis"
+author: "Coral NRG NRK"
+date: "2024-12-11"
+output: html_document
+---
+
+```{r, echo=FALSE}
+library(utils)
+library(pacman)
+p_load(ggplot2, lme4,lmerTest,MuMIn)
+library(dplyr)
+#library(tidyverse)
+library(stats)
+library(mvabund)
+library(lmerTest)
+library(mvabund)
+library (dplyr)
+library(car)
+library(rstatix)
+library(ggplot2)
+library(tidyr)
+library(visreg)
+library(rstatix)
+library(PMCMRplus)
+library(PMCMR)
+library(viridis)
+library(RColorBrewer)
+library(Rmisc)
+library(cowplot)
+library(utils)
+library(vegan)
+library(readr)
+library(predictmeans)
+library(emmeans)
+library(cluster)
+
+library(readxl)
+library(forcats)
+
+```
+
+
+
+
+```{r}
+
+Global_DHWs=read.csv("Global_DHWs.csv")
+head(Global_DHWs)
+str(Global_DHWs)
+colnames(Global_DHWs)
+
+
+Global_DHWs$Area = as.factor(Global_DHWs$Area)
+Global_DHWs$Sub.area = as.factor(Global_DHWs$Sub.area)
+Global_DHWs$Station = as.factor(Global_DHWs$Station)
+Global_DHWs$Max_DHWs <- as.numeric(as.character(Global_DHWs$Max_DHWs))
+Global_DHWs$Year <- as.numeric(as.character(Global_DHWs$Year))
+
+str(Global_DHWs)
+colnames(Global_DHWs)
+```
+```{r}
+Global_DHWs_Station_Year <- Global_DHWs %>%
+  # Create the Station_Year column
+  mutate(Station_Year = paste(Station, Year, sep = " ")) %>%
+  # Order by Max_DHWs (descending) and select top 20
+  arrange(desc(Max_DHWs)) %>%
+  slice_head(n = 20) %>%
+  # Select only the columns we need
+  select(Area, Sub.area, Station_Year, Max_DHWs)
+
+# View the first few rows of the new dataframe
+head(Global_DHWs_Station_Year)
+```
+
+```{r}
+DHWs_2024= Global_DHWs%>%
+  filter(Year=="2024") %>% 
+  arrange(desc(Max_DHWs)) %>%
+  slice_head(n = 30) 
+```
+
+
+
+
+
+
+```{r}
+specific_sub_areas <- c("Middle East", "Gulf of Mexico", "Caribbean", "Eastern Atlantic", "Eastern Pacific", 
+                        "Other Atlantic Ocean Stations", "Other Australia Stations", "Polynesia", 
+                        "US Pacific Remote Islands", "Brazil", "Coral Triangle", "East Asia", 
+                        "Great Barrier Reef", "Melanesia", "Micronesia", "Western Indian Ocean")
+
+
+cb_palette <- c(
+  brewer.pal(8, "Set2"),
+  brewer.pal(8, "Set1"),
+  "#FF4136"  # Bright red for Middle East
+)
+
+# Assign colors to sub-areas
+color_palette <- setNames(cb_palette[1:length(specific_sub_areas)], specific_sub_areas)
+
+
+Global_DHWs_Station_Year <- Global_DHWs_Station_Year %>%
+  filter(Sub.area %in% specific_sub_areas) %>%
+  mutate(Sub.area = fct_relevel(Sub.area, "Middle East"))
+
+DHWs_2024 <- DHWs_2024 %>%
+  filter(Sub.area %in% specific_sub_areas) %>%
+  mutate(Sub.area = fct_relevel(Sub.area, "Middle East"))
+```
+
+
+
+
+
+```{r}
+Global_DHWs_Station_Year_plot <- ggplot(Global_DHWs_Station_Year, 
+       aes(x = reorder(Station_Year, -Max_DHWs), y = Max_DHWs, fill = Sub.area)) +
+  geom_col() +
+  scale_fill_viridis_d(option = "plasma") +  
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 60, hjust = 1, vjust = 1),
+    axis.title.x = element_blank(),  
+    legend.position = "right",
+    legend.title = element_blank(),
+    legend.key.size = unit(0.5, "cm"),  
+    legend.text = element_text(size = 8),  
+    plot.margin = margin(5, 10, 15, 5)  
+  ) +
+  labs(
+    y = "Max DHWs"
+  ) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.1)))  # Add some padding at the top of the bars
+
+# Display the plot
+print(Global_DHWs_Station_Year_plot)
+
+ggsave("Global_DHWs_Station_Year_plot.jpeg", width=20, height= 10, units= "cm", dpi=600)
+
+```
+
+
+
+```{r}
+Global_DHWs_Station_Year_2024_plot <- ggplot(DHWs_2024, 
+       aes(x = reorder(Station, -Max_DHWs), y = Max_DHWs, fill = Sub.area)) +
+  geom_col() +
+  scale_fill_viridis_d(option = "plasma") +  # Use viridis color scale
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 60, hjust = 1, vjust = 1),
+    axis.title.x = element_blank(),  # Remove x-axis title
+    legend.position = "right",
+    legend.title = element_blank(),
+    legend.key.size = unit(0.5, "cm"),  # Make legend keys smaller
+    legend.text = element_text(size = 8),  # Make legend text smaller
+    plot.margin = margin(5, 10, 15, 5)  # Adjust plot margins (top, right, bottom, left)
+  ) +
+  labs(
+    y = "Max DHWs"
+  ) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.1)))  # Add some padding at the top of the bars
+
+# Display the plot
+print(Global_DHWs_Station_Year_2024_plot)
+
+ggsave("Global_DHWs_Station_Year_2024_plot.jpeg", width=20, height= 10, units= "cm", dpi=600)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+

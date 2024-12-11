@@ -1,0 +1,197 @@
+---
+title: "Correlation plots"
+author: "Coral NRG NRK"
+date: "2024-12-11"
+output: html_document
+---
+
+
+
+
+```{r}
+rm(list=ls())
+# Load required libraries
+library(tidyverse)
+library(corrplot)
+library(Hmisc)
+
+# Read the data
+coral_data <- read.csv("Correlation_plot_data.csv")
+
+# Split data by species
+stylophora_data <- coral_data %>% filter(Species == "Stylophora")
+pocillopora_data <- coral_data %>% filter(Species == "Pocillopora")
+
+# Function to create correlation plot for each species
+create_correlation_plot <- function(data, species_name) {
+  # Select variables for correlation
+  vars <- c("Temp_2m", "DHWs", "Cells.cm2", "Chl_pg.cell", 
+            "Proteins_Host.mg.cm2.", "Carbs_Host.mg.cm2.", 
+            "Lipids_Host.mg.cm2.", "Total_energy.J.cm2.", 
+            "Proteins_Zoox..pg.cell.", "Carbs_Zoox.pg.cell.", 
+            "Lipids_Zoox.pg.cell.", "Total_energy.uJ.cell.")
+  
+  # Create named vector for better labels
+  names_vector <- c(
+    "Temperature", "DHWs", "Cell density", "Chlorophyll per cell",
+    "Host protein", "Host carbohydrates", "Host lipids", "Total energy (host)",
+    "Symbiont protein", "Symbiont carbohydrates", "Symbiont lipids", 
+    "Total energy (symbiont)"
+  )
+  names(names_vector) <- vars
+  
+  # Calculate correlation matrix
+  cor_matrix <- cor(data[, vars], use = "pairwise.complete.obs")
+  colnames(cor_matrix) <- names_vector
+  rownames(cor_matrix) <- names_vector
+  
+  # Set up PNG device
+  filename <- ifelse(species_name == "Stylophora", 
+                    "Correlation_Stylophora_environmental_physiological.png",
+                    "Correlation_Pocillopora_environmental_physiological.png")
+  
+  png(filename, width = 2400, height = 2000, res = 300)
+  
+  # Set margins
+  par(mar = c(2, 2, 2, 2))
+  
+  # Create correlation plot
+  corrplot(cor_matrix,
+           method = "color",
+           type = "upper",
+           addCoef.col = "black",
+           col = colorRampPalette(c("#4A0046", "#AF3B76", "#FFE4FF"))(200),
+           number.cex = 0.7,
+           tl.col = "black",
+           tl.srt = 45,
+           tl.cex = 0.8,
+           diag = FALSE,
+           number.digits = 2,
+           cl.ratio = 0.15,
+           cl.align = "l")
+  
+  # Close the device
+  dev.off()
+}
+
+# Create plots for both species
+create_correlation_plot(stylophora_data, "Stylophora")
+create_correlation_plot(pocillopora_data, "Pocillopora")
+
+#The correlations will appear now in your working directory folder.
+
+```
+```{r}
+
+# Function to get significant correlations with their sign
+get_correlations <- function(data, vars) {
+  cor_test <- rcorr(as.matrix(data[, vars]))
+  result <- data.frame(
+    Pair = character(),
+    Correlation = numeric(),
+    P_value = numeric(),
+    Significance = character(),
+    stringsAsFactors = FALSE
+  )
+  
+  for(i in 1:(length(vars)-1)) {
+    for(j in (i+1):length(vars)) {
+      if(cor_test$P[i,j] < 0.05) {
+        sig_level <- case_when(
+          cor_test$P[i,j] < 0.001 ~ "***",
+          cor_test$P[i,j] < 0.01 ~ "**",
+          cor_test$P[i,j] < 0.05 ~ "*"
+        )
+        result <- rbind(result, data.frame(
+          Pair = paste(vars[i], "-", vars[j]),
+          Correlation = round(cor_test$r[i,j], 3),
+          P_value = round(cor_test$P[i,j], 4),
+          Significance = sig_level
+        ))
+      }
+    }
+  }
+  return(result)
+}
+
+# Get correlations for both species
+vars <- c("Temp_2m", "DHWs", "Cells.cm2", "Chl_pg.cell", 
+          "Proteins_Host.mg.cm2.", "Carbs_Host.mg.cm2.", 
+          "Lipids_Host.mg.cm2.", "Total_energy.J.cm2.", 
+          "Proteins_Zoox..pg.cell.", "Carbs_Zoox.pg.cell.", 
+          "Lipids_Zoox.pg.cell.", "Total_energy.uJ.cell.")
+
+stylophora_cors <- get_correlations(
+  coral_data %>% filter(Species == "Stylophora"), 
+  vars
+)
+pocillopora_cors <- get_correlations(
+  coral_data %>% filter(Species == "Pocillopora"), 
+  vars
+)
+
+# Create comparison table
+all_pairs <- unique(c(stylophora_cors$Pair, pocillopora_cors$Pair))
+comparison <- data.frame(
+  Pair = all_pairs,
+  Stylophora = NA,
+  Stylophora_sig = NA,
+  Pocillopora = NA,
+  Pocillopora_sig = NA,
+  Comparison = NA,
+  Unique_to = NA  # New column
+)
+
+for(i in 1:nrow(comparison)) {
+  # Get Stylophora correlation
+  sty_row <- stylophora_cors[stylophora_cors$Pair == comparison$Pair[i],]
+  if(nrow(sty_row) > 0) {
+    comparison$Stylophora[i] <- sty_row$Correlation
+    comparison$Stylophora_sig[i] <- sty_row$Significance
+  }
+  
+  # Get Pocillopora correlation
+  poc_row <- pocillopora_cors[pocillopora_cors$Pair == comparison$Pair[i],]
+  if(nrow(poc_row) > 0) {
+    comparison$Pocillopora[i] <- poc_row$Correlation
+    comparison$Pocillopora_sig[i] <- poc_row$Significance
+  }
+  
+  # Compare correlations
+  sty_sign <- if(!is.na(comparison$Stylophora[i])) sign(comparison$Stylophora[i]) else 0
+  poc_sign <- if(!is.na(comparison$Pocillopora[i])) sign(comparison$Pocillopora[i]) else 0
+  
+  comparison$Comparison[i] <- case_when(
+    sty_sign == 0 || poc_sign == 0 ~ "Unique to one species",
+    sty_sign == poc_sign ~ "Same direction",
+    TRUE ~ "Opposite direction"
+  )
+  
+  # Determine which species shows the unique correlation
+  comparison$Unique_to[i] <- case_when(
+    !is.na(comparison$Stylophora[i]) && is.na(comparison$Pocillopora[i]) ~ "Stylophora",
+    is.na(comparison$Stylophora[i]) && !is.na(comparison$Pocillopora[i]) ~ "Pocillopora",
+    TRUE ~ "Both species"
+  )
+}
+
+# Sort by comparison type and correlation strength
+comparison <- comparison %>%
+  arrange(Comparison, desc(abs(Stylophora)))
+
+# Write to CSV
+write.csv(comparison, "correlation_comparison.csv", row.names = FALSE)
+
+# Print summary
+cat("\nCorrelation Comparison Summary:\n")
+print(table(comparison$Comparison))
+cat("\nUnique Correlations Summary:\n")
+print(table(comparison$Unique_to))
+
+# Display the comparison table
+print(comparison)
+```
+
+
+
+

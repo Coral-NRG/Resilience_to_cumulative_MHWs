@@ -1,0 +1,215 @@
+Area,Sub-area,Station,Max_DHWs,Year
+Pacific Ocean,Eastern Pacific,Galapagos,40,1998
+Australia,Other Australia Stations,Hamelin Pool,33,2011
+Australia,Other Australia Stations,Houtman Abrolhos,32,2011
+Australia,Other Australia Stations,Shark Bay,31,2011
+Indian Ocean,Middle East,Gulf of Aqaba,30,2024
+Indian Ocean,Middle East,Gulf of Suez,30,2024
+Australia,Other Australia Stations,Marmion and Rottnest ,28,2011
+Indian Ocean,Middle East,"Tabuk, Saudi Arabia",28,2024
+Pacific Ocean,Polynesia,Northern Line Islands,27,2015
+Atlantic ocean, Gulf of Mexico,Yucatan Peninsula,26,2023
+Atlantic ocean,Caribbean,Nearshore Venezuela,26,2010
+Atlantic ocean,Caribbean,Nicaragua,26,2023
+Indian Ocean,Middle East,Egypt,26,2024
+Atlantic ocean,Caribbean,Offshore Venezuela,25,2010
+Australia,Other Australia Stations,Ningaloo,25,2011
+Atlantic ocean,Other Atlantic Ocean Stations,Central Bahamas,24,2023
+Atlantic ocean,Caribbean,Northwestern Cuba,24,2023
+Atlantic ocean,Caribbean,"La Guajira, Colombia",24,2023
+Atlantic ocean,Eastern Atlantic,Cape Verde Islands,23,2023
+Atlantic ocean,Caribbean,Jamaica,23,2023
+Atlantic ocean,Caribbean,Southern Hispaniola,23,2023
+Atlantic ocean,Caribbean,"Aruba, Curacao, and Bonaire",23,2023
+Indian Ocean,Middle East,Western Persian Gulf,23,2024
+Atlantic ocean,Florida,Florida Keys,22,2023
+Atlantic ocean,Brazil,Maracajau,22,2024
+Atlantic ocean,Brazil,Costa dos Corais,22,2024
+Southeast Asia,East Asia,Northern Ryukyu Islands,22,2024
+Southeast Asia,East Asia,Southern Taiwan,22,2024
+Southeast Asia,East Asia,"Dongsha, Taiwan",22,2024
+Indian Ocean,Middle East,Eritrea,22,2023
+Indian Ocean,Middle East,Al Madinah and Makkah,22,2024
+Atlantic ocean,Other Atlantic Ocean Stations,Turks and Caicos,21,2023
+Atlantic ocean, Gulf of Mexico,"Veracruz, Mexico",21,2023
+Atlantic ocean,Caribbean,Northeastern Cuba,21,2023
+Atlantic ocean,Caribbean,Southwestern Cuba,21,2023
+Atlantic ocean,Caribbean,Southeastern Cuba,21,2023
+Atlantic ocean,Caribbean,Leeward Caribbean Islands,21,2023
+Atlantic ocean,Caribbean,Windward Caribbean Islands,21,2023
+Atlantic ocean,Caribbean,Panama Atlantic West,21,2023
+Atlantic ocean,Caribbean,Belize,21,2023
+Atlantic ocean,Caribbean,"Quintana Roo, Mexico",21,2023
+Atlantic ocean,Brazil,Todos os Santos,21,2024
+Pacific Ocean,Polynesia,Austral Islands,21,2017
+Pacific Ocean, US Pacific Remote Islands,Howland and Baker,21,2024
+Pacific Ocean,Micronesia,"Phoenix Islands, Kiribati",21,2024
+Southeast Asia,East Asia,Northern Taiwan,21,2024
+Southeast Asia,East Asia,"Hainan Island, China",21,2020
+Southeast Asia,Other Southeast Asia Stations,Ogasawara Islands,21,2020
+Atlantic ocean,Caribbean,Cayman Islands,20,2023
+Atlantic ocean,Caribbean,Trinidad and Tobago,20,2010
+Atlantic ocean,Caribbean,Colombia Atlantic,20,2023
+Atlantic ocean,Caribbean,Costa Rica Atlantic,20,2023
+Atlantic ocean,Caribbean,Honduras,20,2023
+Atlantic ocean,Brazil,Fernando de Noronha,20,2024
+Pacific Ocean,Polynesia,Samoas,20,2024
+Australia,Other Australia Stations,Scott to Ashmore Reefs,20,2016
+Australia,Other Australia Stations,"Lord Howe Island, Australia",20,2010
+Atlantic ocean,Caribbean,Northern Hispaniola,19,2023
+Atlantic ocean,Caribbean,Puerto Rico,19,2023
+Atlantic ocean,Caribbean,Virgin Islands,19,2023
+Atlantic ocean,Caribbean,Panama Atlantic East,19,2023
+Atlantic ocean,Brazil,Abrolhos Reefs,19,2019
+Pacific Ocean,Eastern Pacific,Costa Rica Pacific,19,2024
+Pacific Ocean,Polynesia,Northwestern Hawaiian Islands,19,2014
+Pacific Ocean,Polynesia,Southern Line Islands,19,2015
+Pacific Ocean,Melanesia,Papua New Guinea,19,2023
+Southeast Asia,East Asia,Southern Ryukyu Islands,19,2024
+Southeast Asia,Coral Triangle,West Nusa Tenggara,19,2016
+Indian Ocean,Middle East,Gulf of Oman,19,2024
+Indian Ocean,Middle East,Sudan,19,2023
+Pacific Ocean,Eastern Pacific,Panama Pacific East,18,2023
+Pacific Ocean,Polynesia,Northern Cook Islands,18,2024
+Pacific Ocean,Polynesia,Wallis and Futuna,18,2024
+Pacific Ocean,Polynesia,Southern Cook Islands,18,2017
+Pacific Ocean,Micronesia,"Gilbert Islands, Kiribati",18,2023
+Pacific Ocean,Micronesia,Nauru,18,2014
+Southeast Asia,East Asia,"Hong Kong, China",18,2024
+Southeast Asia,East Asia,Northern Vietnam,18,2021
+Southeast Asia,Coral Triangle,Northern Philippines,18,2024
+Southeast Asia,Coral Triangle,East Java and Bali,18,2016
+Australia,Great Barrier Reef,Northern Coral Sea Islands,18,2024
+Australia,Great Barrier Reef,Southern Coral Sea Islands,18,2024
+Indian Ocean,Middle East,"Jazan, Saudi Arabia",18,2023
+Indian Ocean, South Asia,"Gulf of Kutch, India",18,2020
+Indian Ocean, South Asia,"Chagos Archipelago, UK",18,2016
+Indian Ocean,Western Indian Ocean,Seychelles,18,2024
+Indian Ocean,Western Indian Ocean,Western Madagascar,18,2024
+Indian Ocean,Western Indian Ocean,Northern Mauritius,18,2024
+Indian Ocean,Western Indian Ocean,Southern Mauritius,18,2016
+Atlantic ocean,Florida,Southeast Florida,17,2023
+Pacific Ocean,Melanesia,Chesterfield Islands,17,2024
+Southeast Asia,Coral Triangle,Southern Borneo,17,2010
+Southeast Asia,Coral Triangle,East Nusa Tenggara,17,2016
+Australia,Other Australia Stations,North Western Australia,17,2016
+Indian Ocean,Middle East,Western Yemen,17,2023
+Indian Ocean, South Asia,"Kerala, India",17,2024
+Indian Ocean,Western Indian Ocean,Central Mozambique,17,2024
+Indian Ocean,Western Indian Ocean,Northwestern Madagascar,17,2024
+Indian Ocean,Western Indian Ocean,Southwestern Madagascar,17,2024
+Indian Ocean,Western Indian Ocean,Northeastern Madagascar,17,2024
+Pacific Ocean,Eastern Pacific,El Salvador,16,2023
+Pacific Ocean,Eastern Pacific,Panama Pacific West,16,2024
+Pacific Ocean,Micronesia,Eastern FSM,16,2017
+Pacific Ocean,Melanesia,Western New Caledonia,16,2022
+Southeast Asia,East Asia,"Paracel Islands, China",16,2024
+Southeast Asia,Other Southeast Asia Stations,Southwestern Thailand,16,2024
+Australia,Great Barrier Reef,Far Northern GBR,16,2016
+Australia,Other Australia Stations,Central Western Australia,16,2013
+Australia,Other Australia Stations,"Moreton Bay, Australia",16,2024
+Indian Ocean, South Asia,Western India,16,2020
+Indian Ocean,Western Indian Ocean,Tanzania,16,2024
+Indian Ocean,Western Indian Ocean,Glorioso Islands,16,2024
+Atlantic ocean,Other Atlantic Ocean Stations,Northern Bahamas,15,2023
+Atlantic ocean,Eastern Atlantic,Sao Tome and Principe,15,2024
+Atlantic ocean,Brazil,Buzios,15,2019
+Pacific Ocean,Polynesia,Tuvalu,15,2024
+Pacific Ocean,Polynesia,Northern Tonga,15,2024
+Pacific Ocean,Polynesia,Southern Tonga,15,2000
+Pacific Ocean,Melanesia,Eastern New Caledonia,15,2022
+Southeast Asia,East Asia,Southern Vietnam,15,2024
+Southeast Asia,Other Southeast Asia Stations,Eastern Gulf of Thailand,15,2024
+Southeast Asia,Other Southeast Asia Stations,Western Gulf of Thailand,15,2024
+Southeast Asia,Other Southeast Asia Stations,Northwestern Sumatra,15,2016
+Southeast Asia,Other Southeast Asia Stations,Southern Java,15,2016
+Southeast Asia,Coral Triangle,Central Philippines,15,2020
+Australia,Great Barrier Reef,Southern GBR,15,2024
+Australia,Other Australia Stations,"Norfolk Island, Australia",15,2004
+Indian Ocean,Middle East,"Al Wusta, Oman",15,2020
+Indian Ocean,Western Indian Ocean,"Tromelin and Reunion, France",15,2019
+Pacific Ocean,Eastern Pacific,"Isla del Coco, Costa Rica",14,1998
+Pacific Ocean,Polynesia,Main Hawaiian Islands,14,2019
+Pacific Ocean,Polynesia,Marquesas Islands,14,1998
+Pacific Ocean,Polynesia,"Easter Island, Chile",14,2000
+Pacific Ocean,Micronesia,Northern Mariana Islands,14,2017
+Pacific Ocean,Micronesia,Western FSM,14,2020
+Pacific Ocean,Melanesia,Fiji,14,2014
+Pacific Ocean,Melanesia,Vanuatu,14,2024
+Southeast Asia,Other Southeast Asia Stations,Northern Myanmar,14,2024
+Southeast Asia,Other Southeast Asia Stations,"Malacca Strait, Malaysia",14,2024
+Southeast Asia,Other Southeast Asia Stations,"Terengganu, Malaysia",14,2024
+Southeast Asia,Coral Triangle,South Sulawesi,14,2010
+Australia,Great Barrier Reef,Torres Strait,14,2024
+Australia,Great Barrier Reef,Northern GBR,14,2024
+Australia,Other Australia Stations,"Christmas Island, Australia",14,2010
+Indian Ocean,Middle East,Bahrain,14,1986
+Indian Ocean,Middle East,"Gulf of Tadjoura, Djubouti",14,2023
+Indian Ocean,Western Indian Ocean,Kenya,14,2024
+Pacific Ocean,Micronesia,Guam,13,2017
+Southeast Asia,Other Southeast Asia Stations,"Andaman, India",13,2010
+Southeast Asia,Other Southeast Asia Stations,"Great Nicobar, India",13,2024
+Southeast Asia,Other Southeast Asia Stations,West Kalimantan,13,2024
+Southeast Asia,Other Southeast Asia Stations,Southwestern Sumatra,13,2016
+Southeast Asia,Coral Triangle,West Timor,13,2016
+Australia,Other Australia Stations,Beagle Gulf,13,2016
+Indian Ocean,Western Indian Ocean,Northern Mozambique,13,2024
+Indian Ocean,Western Indian Ocean,Southeastern Madagascar,13,2021
+Atlantic ocean,Other Atlantic Ocean Stations,Bermuda,12,2022
+Atlantic ocean, Gulf of Mexico,"Flower Garden Banks, Texas",12,2023
+Pacific Ocean,Micronesia,Marshall Islands,12,2017
+Southeast Asia,Other Southeast Asia Stations,Southern Myanmar,12,2010
+Southeast Asia,Other Southeast Asia Stations,Spratly Islands,12,2024
+Southeast Asia,Other Southeast Asia Stations,"Johor and Pahang, Malaysia",12,2010
+Southeast Asia,Other Southeast Asia Stations,Lampung and Banten,12,2016
+Southeast Asia,Coral Triangle,Western Philippines,12,2024
+Southeast Asia,Coral Triangle,Eastern Philippines,12,2024
+Southeast Asia,Coral Triangle,"Sabah, Malaysia",12,2024
+Southeast Asia,Coral Triangle,East Kalimantan,12,2010
+Australia,Great Barrier Reef,Central GBR,12,2024
+Australia,Other Australia Stations,"Pulu Keeling, Australia",12,2016
+Australia,Other Australia Stations,Gulf of Carpentaria,12,2016
+Indian Ocean,Middle East,Eastern Persian Gulf,12,1986
+Indian Ocean,Middle East,"Dhofar, Oman",12,2024
+Indian Ocean, South Asia,Southern Sri Lanka,12,2016
+Atlantic ocean,Brazil,Trinadade and Martim Vaz,11,2024
+Pacific Ocean,Polynesia,Tuamotu Archipelago,11,2017
+Pacific Ocean,Micronesia,Palau,11,2017
+Southeast Asia,Other Southeast Asia Stations,Brunei Darussalam,11,2024
+Southeast Asia,Coral Triangle,North Sulawesi,11,2010
+Southeast Asia,Coral Triangle,Central Sulawesi and Gorontalo,11,2024
+Southeast Asia,Coral Triangle,West Sulawesi,11,2010
+Southeast Asia,Coral Triangle,South East Sulawesi,11,2024
+Australia,Other Australia Stations,Northern Territory,11,2018
+Indian Ocean,Middle East,Eastern Yemen,11,2024
+Indian Ocean, South Asia,Gulf of Mannar,11,2016
+Indian Ocean, South Asia,Maldives,11,2016
+Indian Ocean,Western Indian Ocean,Somalia,11,2024
+Indian Ocean,Western Indian Ocean,Comoros,11,2024
+Pacific Ocean,Polynesia,Pitcairn Islands,10,2006
+Pacific Ocean, US Pacific Remote Islands,Wake Atoll,10,2014
+Southeast Asia,Other Southeast Asia Stations,Riau Islands,10,2024
+Southeast Asia,Coral Triangle,Southern Philippines,10,2024
+Southeast Asia,Coral Triangle,"North Maluku, Indonesia",10,2010
+Southeast Asia,Coral Triangle,"Maluku, Indonesia",10,2022
+Indian Ocean,Western Indian Ocean,"Mayotte, France",10,2024
+Indian Ocean,Western Indian Ocean,"Inhambane, Mozambique",10,2021
+Pacific Ocean,Melanesia,West Papua,9,2024
+Pacific Ocean,Melanesia,Solomon Islands,9,2023
+Southeast Asia,Other Southeast Asia Stations,Singapore Strait,9,2024
+Southeast Asia,Other Southeast Asia Stations,Bangka-Belitung Islands,9,2010
+Australia,Other Australia Stations,Rowley Shoals,9,2016
+Indian Ocean, South Asia,"Lakshadweep, India",9,2024
+Indian Ocean, South Asia,Southeastern India,9,2024
+Indian Ocean,Western Indian Ocean,"Bassas da India, France",9,2021
+Indian Ocean,Middle East,"Aden, Yemen",8,2024
+Indian Ocean,Western Indian Ocean,"Maputo, Mozambique",8,2020
+Pacific Ocean,Eastern Pacific,"Clipperton Island, France",7,2024
+Pacific Ocean,Polynesia,Society Archipelago,7,2024
+Pacific Ocean, US Pacific Remote Islands,Johnston Atoll,7,2014
+Southeast Asia,Other Southeast Asia Stations,"Northern Borneo, Malaysia",7,2024
+Southeast Asia,Other Southeast Asia Stations,Northern Java,7,2024
+Southeast Asia,Coral Triangle,Timor-Leste,7,2022
+Indian Ocean,Middle East,"Socotra, Yemen",6,2024
+Indian Ocean, South Asia,Eastern Sri Lanka,6,2016
+Indian Ocean,Western Indian Ocean,South Africa,5,2020

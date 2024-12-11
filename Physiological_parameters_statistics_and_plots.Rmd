@@ -1,0 +1,411 @@
+---
+title: "Physiological parameter analysis- statistics and plots"
+author: "Coral NRG NRK"
+date: "11 12 2024"
+output: html_document
+---
+
+This is an example of the statistical analysis and plots on the parameter "Host carbohydrates" (Carbs_Host.mg.cm2.).
+This code was used repeteadly across all physiological parameters. 
+If normality assumptions were met, mixed linear model was performed.
+If assumptions were not met, PERMANOVA was performed. 
+
+
+```{r, echo=FALSE}
+library(utils)
+library(pacman)
+library(lme4)
+library(lmerTest)
+library(MuMIn)
+library(dplyr)
+library(stats)
+library(mvabund)
+library(lmerTest)
+library(mvabund)
+library (dplyr)
+library(car)
+library(rstatix)
+library(ggplot2)
+library(tidyr)
+library(visreg)
+library(rstatix)
+library(PMCMRplus)
+library(PMCMR)
+library(viridis)
+library(RColorBrewer)
+library(Rmisc)
+library(cowplot)
+library(utils)
+library(vegan)
+library(readr)
+library(predictmeans)
+library(emmeans)
+```
+
+```{r}
+rm(list=ls())
+
+Physio=read.csv("Physiology_table_clean_results.csv")
+head(Physio)
+str(Physio)
+colnames(Physio)
+
+Physio$Date = as.Date(Physio$Date, format=  "%d/%m/%Y")
+Physio$TP= as.factor(Physio$TP)
+Physio$Carbs_Host.mg.cm2. <- as.numeric(as.character(Physio$Carbs_Host.mg.cm2.))
+Physio$Colony=as.factor(Physio$Colony)
+str(Physio)
+
+```
+
+
+```{r}
+Physio_Sty= Physio %>% filter(Species=="Stylophora")%>% drop_na(Carbs_Host.mg.cm2.)
+
+Physio_Poc= Physio %>% filter(Species=="Pocillopora")%>% drop_na(Carbs_Host.mg.cm2.) 
+
+
+
+TPs_names= c("Feb21", "Jul21", "Aug21",
+             "Jan22", "July22", "July22", "Aug22", "Aug22",
+             "Jul23", "Jul23", "Aug23", "Aug23",
+             "Jan24", "Jun24", "Sep24")
+
+
+```
+
+
+
+Stylophora:
+
+
+
+Stats:
+```{r}
+#check homoscadecity
+plot(Physio_Sty$Carbs_Host.mg.cm2.)  
+#Null hypothesis for Levenes: There is no significant difference in the variance between groups 
+# i.e. if p = <0.05 there is significant differences in the variation and therefore violates the assumption of ANOVA
+#homogeneous variances: p = >0.05
+    
+leveneTest(Carbs_Host.mg.cm2.~ TP, Physio_Sty) 
+
+leveneTest(Carbs_Host.mg.cm2.~ Colony, Physio_Sty)
+# not all are homogeneous
+```
+
+```{r}
+H_carbs_Sty <- ggplot() +
+  geom_boxplot(data = Physio_Sty, aes(x = TP, y = Carbs_Host.mg.cm2.)) +
+  geom_point(data = Physio_Sty, aes(x = TP, y = Carbs_Host.mg.cm2., color = Colony), position = position_jitterdodge(), size = 2) +
+  scale_color_manual(values = c("#88CCEE", "#CC6677", "#DDCC77", "#117733", "#332288", "#AA4499", "#44AA99", "#999933", "#882255", "#661100", "#6699CC", "#888888")) +
+  theme_classic(base_size = 16) +
+  theme(legend.position = "none", axis.text.x = element_text(angle = 45, vjust = 0.7)) +
+  ylab(expression(Carbohydrates~(mg~cm^{-2}))) +
+  xlab(NULL) + 
+  scale_x_discrete(labels = TPs_names)+
+  scale_y_continuous(limits = c(0,0.5)) #adjust the limits by the values
+
+
+H_carbs_Sty
+
+
+ggsave("H_carbs_Sty.jpeg", width = 20, height = 10, units = "cm", dpi = 600)
+```
+
+Check for normally distributed data within groups for the fixed factors time point and treatment
+# 3. Shapiro.test on raw data groups
+
+```{r}
+## Null hyp: the distribution of the data is not significantly different from a normal distribution i.e. p = > 0.05 the data are normal
+
+TP1_Sty = subset(Physio_Sty, TP =="1")
+shapiro.test(TP1_Sty$Carbs_Host.mg.cm2.) 
+
+TP2_Sty = subset(Physio_Sty, TP =="2")
+shapiro.test(TP2_Sty$Carbs_Host.mg.cm2.)
+
+TP3_Sty = subset(Physio_Sty, TP =="3")
+shapiro.test(TP3_Sty$Carbs_Host.mg.cm2.)
+
+TP4_Sty = subset(Physio_Sty, TP =="4")
+shapiro.test(TP4_Sty$Carbs_Host.mg.cm2.)
+
+TP5_Sty = subset(Physio_Sty, TP =="5")
+shapiro.test(TP5_Sty$Carbs_Host.mg.cm2.)
+
+TP6_Sty = subset(Physio_Sty, TP =="6")
+shapiro.test(TP6_Sty$Carbs_Host.mg.cm2.)
+
+TP7_Sty = subset(Physio_Sty, TP =="7")
+shapiro.test(TP7_Sty$Carbs_Host.mg.cm2.)
+
+TP8_Sty = subset(Physio_Sty, TP =="8")
+shapiro.test(TP8_Sty$Carbs_Host.mg.cm2.)
+
+TP9_Sty = subset(Physio_Sty, TP =="9")
+shapiro.test(TP9_Sty$Carbs_Host.mg.cm2.)
+
+TP10_Sty = subset(Physio_Sty, TP =="10")
+shapiro.test(TP10_Sty$Carbs_Host.mg.cm2.)
+
+TP11_Sty = subset(Physio_Sty, TP =="11")
+shapiro.test(TP11_Sty$Carbs_Host.mg.cm2.)
+
+TP12_Sty = subset(Physio_Sty, TP =="12")
+shapiro.test(TP12_Sty$Carbs_Host.mg.cm2.)
+
+TP13_Sty = subset(Physio_Sty, TP =="13")
+shapiro.test(TP13_Sty$Carbs_Host.mg.cm2.)
+
+TP14_Sty = subset(Physio_Sty, TP =="14")
+shapiro.test(TP14_Sty$Carbs_Host.mg.cm2.)
+
+TP15_Sty = subset(Physio_Sty, TP =="15")
+shapiro.test(TP15_Sty$Carbs_Host.mg.cm2.)
+
+```
+
+```{r}
+#If ANOVA assumptions were met:
+Carbs_Host.mg.cm2._lmer = lmer(Carbs_Host.mg.cm2.~ TP + (1|Colony), data = Physio_Sty, REML=FALSE)
+summary(Carbs_Host.mg.cm2._lmer)
+```
+
+```{r}
+anova(Carbs_Host.mg.cm2._lmer)
+residplot(Carbs_Host.mg.cm2._lmer, group = "TP")
+lsmeans(Carbs_Host.mg.cm2._lmer, pairwise~TP, adjust="tukey")
+```
+
+
+
+```{r}
+#If model assumptions are not met:
+
+permanova_result = permanova.lmer(Carbs_Host.mg.cm2._lmer, nperm = 999)
+print(permanova_result)
+```
+
+```{r}
+pairwise_permanova <- function(data, response, factor, random = NULL, nperm = 999) {
+  levels <- unique(data[[factor]])
+  n <- length(levels)
+  results <- matrix(NA, n, n, dimnames = list(levels, levels))
+  
+  for (i in 1:(n-1)) {
+    for (j in (i+1):n) {
+      tryCatch({
+        subset_data <- data[data[[factor]] %in% c(levels[i], levels[j]), ]
+        
+        if (is.null(random)) {
+          model <- lm(as.formula(paste(response, "~", factor)), data = subset_data)
+        } else {
+          model <- lmer(as.formula(paste(response, "~", factor, "+", random)), data = subset_data, REML = FALSE)
+        }
+        
+        perm_result <- permanova.lmer(model, nperm = nperm)
+        
+        cat("Comparing", levels[i], "and", levels[j], "\n")
+        print(perm_result)
+        
+        p_value <- perm_result$Perm.p
+        
+        results[i, j] <- results[j, i] <- p_value
+      }, error = function(e) {
+        cat("Error in comparison of", levels[i], "and", levels[j], ":", conditionMessage(e), "\n")
+      })
+    }
+  }
+  
+  return(results)
+}
+```
+
+```{r}
+post_hoc_results_random <- pairwise_permanova(Physio_Sty, "Carbs_Host.mg.cm2.", "TP", random = "(1|Colony)", nperm = 999)
+
+# View the results
+print(post_hoc_results_random)
+```
+
+
+
+
+
+
+
+
+
+Pocillopora:
+Stats:
+```{r}
+#check homoscadecity
+plot(Physio_Poc$Carbs_Host.mg.cm2.)  
+#Null hypothesis for Levenes: There is no significant difference in the variance between groups 
+# i.e. if p = <0.05 there is significant differences in the variation and therefore violates the assumption of ANOVA
+#homogeneous variances: p = >0.05
+    
+leveneTest(Carbs_Host.mg.cm2.~ TP, Physio_Poc) 
+
+leveneTest(Carbs_Host.mg.cm2.~ Colony, Physio_Poc)
+# not all are homogeneous
+```
+
+```{r}
+H_carbs_Poc <- ggplot() +
+  geom_boxplot(data = Physio_Poc, aes(x = TP, y = Carbs_Host.mg.cm2.)) +
+  geom_point(data = Physio_Poc, aes(x = TP, y = Carbs_Host.mg.cm2., color = Colony), position = position_jitterdodge(), size = 2) +
+  scale_color_manual(values = c("#88CCEE", "#CC6677", "#DDCC77", "#117733", "#332288", "#AA4499", "#44AA99", "#999933", "#882255", "#661100", "#6699CC", "#888888")) +
+  theme_classic(base_size = 16) +
+  theme(legend.position = "none", axis.text.x = element_text(angle = 45, vjust = 0.7)) +
+  ylab(expression(Carbohydrates~(mg~cm^{-2}))) +
+  xlab(NULL) + 
+  scale_x_discrete(labels = TPs_names)+
+  scale_y_continuous(limits = c(0,0.25))  #adjust the limits by the values #adjust the limits by the values
+
+
+H_carbs_Poc
+
+
+ggsave("H_carbs_Poc.jpeg", width = 20, height = 10, units = "cm", dpi = 600)
+```
+
+Check for normally distributed data within groups for the fixed factors time point and treatment
+# 3. Shapiro.test on raw data groups
+
+```{r}
+## Null hyp: the distribution of the data is not significantly different from a normal distribution i.e. p = > 0.05 the data are normal
+
+TP1_Poc = subset(Physio_Poc, TP =="1")
+shapiro.test(TP1_Poc$Carbs_Host.mg.cm2.) 
+
+TP2_Poc = subset(Physio_Poc, TP =="2")
+shapiro.test(TP2_Poc$Carbs_Host.mg.cm2.)
+
+TP3_Poc = subset(Physio_Poc, TP =="3")
+shapiro.test(TP3_Poc$Carbs_Host.mg.cm2.)
+
+TP4_Poc = subset(Physio_Poc, TP =="4")
+shapiro.test(TP4_Poc$Carbs_Host.mg.cm2.)
+
+TP5_Poc = subset(Physio_Poc, TP =="5")
+shapiro.test(TP5_Poc$Carbs_Host.mg.cm2.)
+
+TP6_Poc = subset(Physio_Poc, TP =="6")
+shapiro.test(TP6_Poc$Carbs_Host.mg.cm2.)
+
+TP7_Poc = subset(Physio_Poc, TP =="7")
+shapiro.test(TP7_Poc$Carbs_Host.mg.cm2.)
+
+TP8_Poc = subset(Physio_Poc, TP =="8")
+shapiro.test(TP8_Poc$Carbs_Host.mg.cm2.)
+
+TP9_Poc = subset(Physio_Poc, TP =="9")
+shapiro.test(TP9_Poc$Carbs_Host.mg.cm2.)
+
+TP10_Poc = subset(Physio_Poc, TP =="10")
+shapiro.test(TP10_Poc$Carbs_Host.mg.cm2.)
+
+TP11_Poc = subset(Physio_Poc, TP =="11")
+shapiro.test(TP11_Poc$Carbs_Host.mg.cm2.)
+
+TP12_Poc = subset(Physio_Poc, TP =="12")
+shapiro.test(TP12_Poc$Carbs_Host.mg.cm2.)
+
+TP13_Poc = subset(Physio_Poc, TP =="13")
+shapiro.test(TP13_Poc$Carbs_Host.mg.cm2.)
+
+TP14_Poc = subset(Physio_Poc, TP =="14")
+shapiro.test(TP14_Poc$Carbs_Host.mg.cm2.)
+
+TP15_Poc = subset(Physio_Poc, TP =="15")
+shapiro.test(TP15_Poc$Carbs_Host.mg.cm2.)
+
+```
+
+```{r}
+
+Carbs_Host.mg.cm2._lmer = lmer(Carbs_Host.mg.cm2.~ TP + (1|Colony), data = Physio_Poc, REML=FALSE)
+summary(Carbs_Host.mg.cm2._lmer)
+```
+
+```{r}
+#If ANOVA assumptions were met:
+anova(Carbs_Host.mg.cm2._lmer)
+residplot(Carbs_Host.mg.cm2._lmer, group = "TP")
+lsmeans(Carbs_Host.mg.cm2._lmer, pairwise~TP, adjust="tukey")
+```
+
+
+
+```{r}
+#If model assumptions are not met:
+
+permanova_result = permanova.lmer(Carbs_Host.mg.cm2._lmer, nperm = 999)
+print(permanova_result)
+```
+
+```{r}
+pairwise_permanova <- function(data, response, factor, random = NULL, nperm = 999) {
+  levels <- unique(data[[factor]])
+  n <- length(levels)
+  results <- matrix(NA, n, n, dimnames = list(levels, levels))
+  
+  for (i in 1:(n-1)) {
+    for (j in (i+1):n) {
+      tryCatch({
+        subset_data <- data[data[[factor]] %in% c(levels[i], levels[j]), ]
+        
+        if (is.null(random)) {
+          model <- lm(as.formula(paste(response, "~", factor)), data = subset_data)
+        } else {
+          model <- lmer(as.formula(paste(response, "~", factor, "+", random)), data = subset_data, REML = FALSE)
+        }
+        
+        perm_result <- permanova.lmer(model, nperm = nperm)
+        
+        cat("Comparing", levels[i], "and", levels[j], "\n")
+        print(perm_result)
+        
+        p_value <- perm_result$Perm.p
+        
+        results[i, j] <- results[j, i] <- p_value
+      }, error = function(e) {
+        cat("Error in comparison of", levels[i], "and", levels[j], ":", conditionMessage(e), "\n")
+      })
+    }
+  }
+  
+  return(results)
+}
+```
+
+```{r}
+post_hoc_results_random <- pairwise_permanova(Physio_Poc, "Carbs_Host.mg.cm2.", "TP", random = "(1|Colony)", nperm = 999)
+
+# View the results
+print(post_hoc_results_random)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
