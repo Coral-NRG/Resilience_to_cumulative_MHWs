@@ -1,0 +1,247 @@
+---
+title: "Coral Parameters Analysis"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(lubridate)
+```
+
+```{r data_import}
+# Read the data
+data <- read.csv("RLC_summary.csv")
+
+# Convert Date to proper date format (day/month/year)
+data$Date <- as.Date(data$Date, format = "%d/%m/%Y")
+data$iK  <- as.numeric(as.character(data$iK))
+data$Colony=as.factor(data$Colony)
+data$Species=as.factor(data$Species)
+data$TP     =as.factor(data$TP)
+str(data)
+```
+
+```{r}
+data_Sty= data %>% filter(Species=="Stylophora")
+data_Poc= data %>% filter(Species=="Pocillopora")
+```
+
+```{r}
+TPs_names= c("Jul23", "Aug23", "Sep23", "Dec23", "Jan24", "Sep24" )
+```
+
+
+
+```{r}
+Fv.Fm_Sty <- ggplot() +
+  geom_boxplot(data = data_Sty, aes(x = TP, y = Fv.Fm)) +
+  geom_point(data = data_Sty, aes(x = TP, y = Fv.Fm, color = Colony), position = position_jitterdodge(), size = 2) +
+  theme_classic(base_size = 16) +
+  theme(legend.position = "none", axis.text.x = element_text(angle = 45, vjust = 0.7)) +
+  ylab(expression(Fv/Fm)) +
+  xlab(NULL)  +
+  scale_y_continuous(limits = c(0.4,0.8), breaks = c(0.4, 0.5, 0.6, 0.7, 0.8)) +
+  scale_x_discrete(labels = TPs_names)
+
+Fv.Fm_Sty
+
+ggsave("Fv.Fm_Sty.jpeg", width = 20, height = 10, units = "cm", dpi = 600)
+```
+
+
+```{r}
+alpha_Sty <- ggplot() +
+  geom_boxplot(data = data_Sty, aes(x = TP, y = alpha)) +
+  geom_point(data = data_Sty, aes(x = TP, y = alpha, color = Colony), position = position_jitterdodge(), size = 2) +
+  theme_classic(base_size = 16) +
+  theme(legend.position = "none", axis.text.x = element_text(angle = 45, vjust = 0.7)) +
+  ylab(expression(alpha)) +
+  xlab(NULL)  +
+   scale_x_discrete(labels = TPs_names)+
+  scale_y_continuous(limits = c(0, 0.4))
+ 
+
+alpha_Sty
+
+ggsave("alpha_Sty.jpeg", width = 20, height = 10, units = "cm", dpi = 600)
+```
+
+
+```{r}
+rETRmax_Sty <- ggplot() +
+  geom_boxplot(data = data_Sty, aes(x = TP, y = rETRmax)) +
+  geom_point(data = data_Sty, aes(x = TP, y = rETRmax, color = Colony), position = position_jitterdodge(), size = 2) +
+  theme_classic(base_size = 16) +
+  theme(legend.position = "none", axis.text.x = element_text(angle = 45, vjust = 0.7)) +
+  ylab(expression(rETRmax)) +
+  xlab(NULL)  +
+   scale_x_discrete(labels = TPs_names)+
+  scale_y_continuous(limits = c(0, 250))
+ 
+
+rETRmax_Sty
+
+ggsave("rETRmax_Sty.jpeg", width = 20, height = 10, units = "cm", dpi = 600)
+```
+
+
+```{r}
+iK_Sty <- ggplot() +
+  geom_boxplot(data = data_Sty, aes(x = TP, y = iK)) +
+  geom_point(data = data_Sty, aes(x = TP, y = iK, color = Colony), position = position_jitterdodge(), size = 2) +
+  theme_classic(base_size = 16) +
+  theme(legend.position = "none", axis.text.x = element_text(angle = 45, vjust = 0.7)) +
+  ylab(expression(iK)) +
+  xlab(NULL)  +
+   scale_x_discrete(labels = TPs_names)+
+  scale_y_continuous(limits = c(0, 1000))
+ 
+
+iK_Sty
+
+ggsave("iK_Sty.jpeg", width = 20, height = 10, units = "cm", dpi = 600)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+Fv.Fm_Poc <- ggplot() +
+  geom_boxplot(data = data_Poc, aes(x = TP, y = Fv.Fm)) +
+  geom_point(data = data_Poc, aes(x = TP, y = Fv.Fm, color = Colony), position = position_jitterdodge(), size = 2) +
+  theme_classic(base_size = 16) +
+  theme(legend.position = "none", axis.text.x = element_text(angle = 45, vjust = 0.7)) +
+  ylab(expression(Fv/Fm)) +
+  xlab(NULL)  +
+  scale_y_continuous(limits = c(0.4,0.8), breaks = c( 0.4, 0.5, 0.6, 0.7, 0.8)) +
+  scale_x_discrete(labels = TPs_names)
+
+Fv.Fm_Poc
+
+ggsave("Fv.Fm_Poc.jpeg", width = 20, height = 10, units = "cm", dpi = 600)
+```
+
+
+```{r}
+alpha_Poc <- ggplot() +
+  geom_boxplot(data = data_Poc, aes(x = TP, y = alpha)) +
+  geom_point(data = data_Poc, aes(x = TP, y = alpha, color = Colony), position = position_jitterdodge(), size = 2) +
+  theme_classic(base_size = 16) +
+  theme(legend.position = "none", axis.text.x = element_text(angle = 45, vjust = 0.7)) +
+  ylab(expression(alpha)) +
+  xlab(NULL)  +
+   scale_x_discrete(labels = TPs_names)+
+  scale_y_continuous(limits = c(0, 0.4))
+ 
+
+alpha_Poc
+
+ggsave("alpha_Poc.jpeg", width = 20, height = 10, units = "cm", dpi = 600)
+```
+
+
+```{r}
+rETRmax_Poc <- ggplot() +
+  geom_boxplot(data = data_Poc, aes(x = TP, y = rETRmax)) +
+  geom_point(data = data_Poc, aes(x = TP, y = rETRmax, color = Colony), position = position_jitterdodge(), size = 2) +
+  theme_classic(base_size = 16) +
+  theme(legend.position = "none", axis.text.x = element_text(angle = 45, vjust = 0.7)) +
+  ylab(expression(rETRmax)) +
+  xlab(NULL)  +
+   scale_x_discrete(labels = TPs_names)+
+  scale_y_continuous(limits = c(0, 250))
+ 
+
+rETRmax_Poc
+
+ggsave("rETRmax_Poc.jpeg", width = 20, height = 10, units = "cm", dpi = 600)
+```
+
+
+```{r}
+iK_Poc <- ggplot() +
+  geom_boxplot(data = data_Poc, aes(x = TP, y = iK)) +
+  geom_point(data = data_Poc, aes(x = TP, y = iK, color = Colony), position = position_jitterdodge(), size = 2) +
+  theme_classic(base_size = 16) +
+  theme(legend.position = "none", axis.text.x = element_text(angle = 45, vjust = 0.7)) +
+  ylab(expression(iK)) +
+  xlab(NULL)  +
+   scale_x_discrete(labels = TPs_names)+
+  scale_y_continuous(limits = c(0, 1000))
+ 
+
+iK_Poc
+
+ggsave("iK_Poc.jpeg", width = 20, height = 10, units = "cm", dpi = 600)
+```
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(rstatix)  # For tidy statistical tests
+```
+
+```{r kruskal_tests}
+# Perform Kruskal-Wallis tests for Stylophora
+kw_sty_fvfm <- kruskal.test(Fv.Fm ~ TP, data = data_Sty)
+kw_sty_alpha <- kruskal.test(alpha ~ TP, data = data_Sty)
+kw_sty_retr <- kruskal.test(rETRmax ~ TP, data = data_Sty)
+kw_sty_ik <- kruskal.test(iK ~ TP, data = data_Sty)
+
+# Perform Kruskal-Wallis tests for Pocillopora
+kw_poc_fvfm <- kruskal.test(Fv.Fm ~ TP, data = data_Poc)
+kw_poc_alpha <- kruskal.test(alpha ~ TP, data = data_Poc)
+kw_poc_retr <- kruskal.test(rETRmax ~ TP, data = data_Poc)
+kw_poc_ik <- kruskal.test(iK ~ TP, data = data_Poc)
+
+# Function to create a nice summary of results
+format_kw_results <- function(test_result, parameter, species) {
+  data.frame(
+    Species = species,
+    Parameter = parameter,
+    Chi_squared = round(test_result$statistic, 3),
+    df = test_result$parameter,
+    p_value = round(test_result$p.value, 4)
+  )
+}
+
+# Combine all results
+all_results <- rbind(
+  format_kw_results(kw_sty_fvfm, "Fv/Fm", "Stylophora"),
+  format_kw_results(kw_sty_alpha, "Alpha", "Stylophora"),
+  format_kw_results(kw_sty_retr, "rETRmax", "Stylophora"),
+  format_kw_results(kw_sty_ik, "iK", "Stylophora"),
+  format_kw_results(kw_poc_fvfm, "Fv/Fm", "Pocillopora"),
+  format_kw_results(kw_poc_alpha, "Alpha", "Pocillopora"),
+  format_kw_results(kw_poc_retr, "rETRmax", "Pocillopora"),
+  format_kw_results(kw_poc_ik, "iK", "Pocillopora")
+)
+
+# Display results in a nice table
+knitr::kable(all_results, 
+             caption = "Kruskal-Wallis Test Results by Species and Parameter",
+             align = c('l', 'l', 'r', 'r', 'r'))
+
+write.csv(all_results, "KW_test_results.csv", row.names = FALSE)
+```
+
+
+
+
+
